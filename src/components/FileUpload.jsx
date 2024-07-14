@@ -10,6 +10,7 @@ GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${versi
 const FileUpload = () => {
   const [pdfFile, setPdfFile] = useState(null);
   const [pdfText, setPdfText] = useState('');
+  const [openAIResponse, setOpenAIResponse] = useState([]);
 
   const handleFileChange = (e) => {
     const file = e.target.files[0];
@@ -34,7 +35,7 @@ const FileUpload = () => {
   };
 
   const sendMessageToOpenAI = async (message) => {
-    const prompt = `${pdfText}\n\nUser: ${message}\nChatGPT: generate five multiple choice question each question consisting of 4 option , amd also tell the right option`;
+    const prompt = `${pdfText}\n\nUser : generate five multiple choice question each question consisting of 4 option , and also tell the right option`;
 
     const response = await axios.post('https://api.openai.com/v1/chat/completions', {
       model: 'gpt-3.5-turbo',
@@ -47,9 +48,11 @@ const FileUpload = () => {
     });
 
     const openAIResponse = response.data.choices[0].message.content;
-    //return openAIResponse;
+    return openAIResponse;
+    
   };
-  console.log(openAIResponse);
+  //console.log(openAIResponse);
+  
 
   return (
     <div className="App">
@@ -60,7 +63,7 @@ const FileUpload = () => {
       {pdfText && (
         <div className="text-container">
           <h2>Extracted Text</h2>
-          <p>{pdfText}</p>
+          <p>{openAIResponse}</p>
         </div>
       )}
     </div>
