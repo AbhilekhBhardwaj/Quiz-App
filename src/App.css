@@ -1,0 +1,18 @@
+body{
+  background-color: #106EBE;
+}
+.container{
+  width: 60%; 
+}
+.upload-section{
+ align-items: center;
+ margin: auto;
+}
+
+input{
+  font-weight: bold;
+  color: blac;
+  padding: 0.5em;
+  border: thin solid grey;
+  border-radius: 3px;
+}
