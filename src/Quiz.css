@@ -29,6 +29,10 @@
   border-radius: 8px;
   font-size: 20px;
   cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+.container ul li:hover {
+  background-color: #f0f0f0; 
 }
 .container button{
   margin: auto;

@@ -1,9 +1,9 @@
 import React, { useRef, useState, useEffect } from 'react';
 import './Quiz.css';
 
-const Quiz = ({ openAIresponse }) => {
+const Quiz = ({ openAIresponse, goToUploadScreen }) => {
   const [index, setIndex] = useState(0);
-  const [question, setQuestion] = useState(openAIresponse?.[0] || null); // Initialize with the first question or null
+  const [question, setQuestion] = useState(openAIresponse?.[0] || null);
   const [lock, setLock] = useState(false);
   const [score, setScore] = useState(0);
   const [result, setResult] = useState(false);
@@ -17,7 +17,7 @@ const Quiz = ({ openAIresponse }) => {
 
   useEffect(() => {
     if (openAIresponse && openAIresponse.length > 0) {
-      setQuestion(openAIresponse[0]); // Set the first question after response is loaded
+      setQuestion(openAIresponse[0]);
     }
   }, [openAIresponse]);
 
@@ -26,7 +26,7 @@ const Quiz = ({ openAIresponse }) => {
       if (question.ans === ans) {
         e.target.classList.add('correct');
         setLock(true);
-        setScore(prev => prev + 1);
+        setScore((prev) => prev + 1);
       } else {
         e.target.classList.add('wrong');
         setLock(true);
@@ -45,7 +45,7 @@ const Quiz = ({ openAIresponse }) => {
       setIndex(newIndex);
       setQuestion(openAIresponse[newIndex]);
       setLock(false);
-      option_array.forEach(option => {
+      option_array.forEach((option) => {
         option.current.classList.remove('correct', 'wrong');
       });
     }
@@ -60,7 +60,7 @@ const Quiz = ({ openAIresponse }) => {
   };
 
   if (!question) {
-    return <div>Loading quiz...</div>; // Handle case where questions are not yet available
+    return <div>Loading quiz...</div>;
   }
 
   return (
@@ -83,6 +83,7 @@ const Quiz = ({ openAIresponse }) => {
         <>
           <h2>You Scored {score} out of {openAIresponse.length}</h2>
           <button onClick={reset}>Reset</button>
+          <button onClick={goToUploadScreen}>Upload New PDF</button> 
         </>
       )}
     </div>
